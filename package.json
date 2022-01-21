@@ -1,5 +1,5 @@
 {
-  "name": "ginit",
+  "name": "generator",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "ginit": "./index.js"
+    "generator": "./index.js"
   },
   "keywords": [],
   "author": "",
@@ -19,10 +19,13 @@
     "chalk": "^5.0.0",
     "clear": "^0.1.0",
     "cli-progress": "^3.10.0",
+    "cli-spinner": "^0.2.10",
+    "cli-spinners": "^2.6.1",
     "clui": "^0.3.6",
     "configstore": "^6.0.0",
     "figlet": "^1.5.2",
     "inquirer": "^8.2.0",
+    "listr": "^0.14.3",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
     "simple-git": "^3.0.3",
