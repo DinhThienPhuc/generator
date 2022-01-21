@@ -1,4 +1,4 @@
-# C2 React Base
+# Geenrator
 
 ## Requires
 
