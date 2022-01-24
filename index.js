@@ -101,57 +101,55 @@ const currentDirectory = `${process.cwd()}/generator`;
 const workDirectory = `${process.cwd()}/${project.name}`;
 
 const tasks = new Listr([
-  // {
-  //   title: "Install CRA with typescript",
-  //   task: async () => {
-  //     try {
-  //       return await exec(
-  //         `yarn create react-app ${project.name} --template typescript`
-  //       );
-  //     } catch (error) {
-  //       throw new Error(
-  //         "Folder exist. Please select a different name for the project"
-  //       );
-  //     }
-  //   },
-  // },
-  // {
-  //   title: "Flush packages",
-  //   task: async (_, task) => {
-  //     try {
-  //       if (fs.existsSync(`${project.name}/package-lock.json`)) {
-  //         await exec(`rm package-lock.json`, {
-  //           cwd: workDirectory,
-  //         });
-  //       }
-  //       return await exec(`rm -rf node_modules`, { cwd: workDirectory });
-  //     } catch (error) {
-  //       task.skip("Project cleaned");
-  //     }
-  //   },
-  // },
+  {
+    title: "Install CRA with typescript",
+    task: async () => {
+      try {
+        return await exec(
+          `yarn create react-app ${project.name} --template typescript`
+        );
+      } catch (error) {
+        throw new Error(
+          "Folder exist. Please select a different name for the project"
+        );
+      }
+    },
+  },
+  {
+    title: "Flush packages",
+    task: async (_, task) => {
+      try {
+        if (fs.existsSync(`${project.name}/package-lock.json`)) {
+          await exec(`rm package-lock.json`, {
+            cwd: workDirectory,
+          });
+        }
+        return await exec(`rm -rf node_modules`, { cwd: workDirectory });
+      } catch (error) {
+        task.skip("Project cleaned");
+      }
+    },
+  },
   {
     title: `Install ${chalk.yellow("ESLint")}, ${chalk.magenta(
       "Husky"
     )} and ${chalk.blue("Prettier")}`,
     task: async () => {
-
-      return await exec(`cp ${currentDirectory}/assets/common/.eslintrc.js ${project.name}/.eslintrc.js`);
-      // try {
-      // await exec(`yarn add --dev prettier pretty-quick eslint`, {
-      //   cwd: workDirectory,
-      // });
-      // await exec(`npx husky-init && yarn`, { cwd: workDirectory });
-      // await exec(
-      //   `yarn husky set .husky/pre-commit "npx pretty-quick --staged"`,
-      //   {
-      //     cwd: workDirectory,
-      //   }
-      // );
-      // return await exec(`cp assets/eslint ${project.name}/.eslintrc.json`);
-      // } catch (error) {
-      //   throw new Error("Install package failed!");
-      // }
+      try {
+        await exec(`yarn add --dev prettier pretty-quick eslint`, {
+          cwd: workDirectory,
+        });
+        await exec(`npx husky-init && yarn`, { cwd: workDirectory });
+        await exec(
+          `yarn husky set .husky/pre-commit "npx pretty-quick --staged"`,
+          {
+            cwd: workDirectory,
+          }
+        );
+        return await exec(`cp assets/eslint ${project.name}/.eslintrc.json`);
+      } catch (error) {
+        throw new Error("Install package failed!");
+      }
     },
   },
   {
