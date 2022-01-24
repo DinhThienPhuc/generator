@@ -140,13 +140,12 @@ const tasks = new Listr([
           cwd: workDirectory,
         });
         await exec(`npx husky-init && yarn`, { cwd: workDirectory });
-        await exec(
+        return await exec(
           `yarn husky set .husky/pre-commit "npx pretty-quick --staged"`,
           {
             cwd: workDirectory,
           }
         );
-        return await exec(`cp assets/eslint ${project.name}/.eslintrc.json`);
       } catch (error) {
         throw new Error("Install package failed!");
       }
